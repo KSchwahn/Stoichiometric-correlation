@@ -2,20 +2,20 @@
 
 ## The folder "Functions" contains the following R-function files 
 
-*divisors <- number of metabolites
-*ks_stoichiometric_correlation
-*ks_find_max_cor_tr
-*ks_find_max_cor_qu
-*ks_pairwise_cor
-*ks_find_max_cor
-*ks_make_table
-*ks_shared_cluster
-*write_list
-*ks_make_bipartite_graph
+1. divisors  
+2. ks_stoichiometric_correlation
+3. ks_find_max_cor_tr
+4. ks_find_max_cor_qu
+5. ks_pairwise_cor
+6. ks_find_max_cor
+7. ks_make_table
+8. ks_shared_cluster
+9. write_list
+10. ks_make_bipartite_graph
 
 ## And Pyhton scripts
-*File_read_triples.py
-*File_read_quadruples.py
+11. File_read_triples.py
+12. File_read_quadruples.py
 
 ## An example script, which explains in which order the functions need to be called.
 
