@@ -1,4 +1,15 @@
 ks_make_bipartite_graph = function(pairs,triplets,quadruples,tr){
+ #The function calculates a bipartite graph based on the pairs, triples and quadruples of one experiment.
+ #The graph is used to calculate the node degree of the metabolites used for the analysis
+
+#####Input
+ #pairs: supply the output of the functions "ks_find_max_cor()"
+ #triples: supply the result of the "File_read_triples.py-script". This document has to be read into R first
+ #quadruples: supply the result of the "File_read_quadruples.py-script". This document has to be read into R first
+
+#####Output
+ #g: A bipartite graph in the igraph-package style.
+
 library(igraph)
   pairs = pairs[which(pairs$max_correlations>=tr),]
   pairs = pairs[which(pairs$max_pvalues<=0.05),]

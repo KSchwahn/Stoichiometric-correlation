@@ -1,4 +1,13 @@
+####Set of functions to caculate the pairwise correlation of the provided metabolites and to extract the maximal correlation in a way it matches the output of "ks_find_max_cor_tr()" and "ks_find_max_cor_qu()"
+
 ks_pairwise_cor = function(Data,log=T){
+####Input
+  #Data: data.frame with metabolite measurements. Rows: metabolites; Cols: experiments
+  #log: specifies of a logtransformation should be performed as it is done for the triples and quadruples
+
+#####Output
+  #List with two data.frames. One with all correlation values, the second with the associated adjusted p-values.
+
 library(Hmisc)
   if(log==T){
     corr = rcorr(log(t(Data)),type="pearson")
@@ -25,6 +34,12 @@ library(Hmisc)
 
 
 ks_find_max_cor = function(Data){
+###Input
+  #Data: The list provided as a output by "ks_pairwise_cor()"
+
+###Output
+  #A data.frame, which matches the output of the triples and quadruple analysis. It contains the maximal correlation, the associated p-value and the names of the metabolites, which form the pair.
+
   correlations = Data$correlations
   pvalues = Data$pvalues
   out_correlations = numeric(length(correlations[upper.tri(correlations,diag=F)]))
@@ -32,9 +47,9 @@ ks_find_max_cor = function(Data){
   out_names = character(length(correlations[upper.tri(correlations,diag=F)]))
   counter = 0
   for(i in 2:nrow(correlations)-1){
-    print(i)
+
     for(j in (i+1):ncol(correlations)){
-      print(j)
+
       if(i!=j){
         counter = counter+ 1 
         out_correlations[counter]<-correlations[i,j]

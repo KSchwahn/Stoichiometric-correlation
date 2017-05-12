@@ -1,4 +1,23 @@
 ks_shared_metabolites = function(data_pair,data_all,data2_pair,data2_all,tr,name1,name2){
+#This functions is important when comparing two data sets.
+#It computes the overlap of pairs, triples and quadruples of two data sets
+
+###Input
+ #data_pair: supply the output of the functions "ks_find_max_cor()" for the first data set
+ #data_pair2: supply the output of the functions "ks_find_max_cor()" for the second data set
+ #data_all: supply the result of the "File_read_triples.py-script" and "File_read_quadruples.py-script" for the first data set in one list. These document has to be read into R first.
+ #data_all2: supply the result of the "File_read_triples.py-script" and "File_read_quadruples.py-script" for the second data set in one list. These document has to be read into R first.
+ #tr: specify the threshold for which the soverlap should be calculated.
+ #name1: name of the first data set. Supply a string, which will be used for renaming the output.
+ #name2: name of the second data set. Supply a string, which will be used for renaming the output.
+
+###Output
+ #The function returns a list with four data.frame objects.
+ #Counts: overview over the overlapping pairs, triples and quadruples and the overall number per data set.
+ #Pairs: On column with the names of the overlapping pairs.
+ #Triples: On column with the names of the overlapping triples.
+ #Quadruples: On column with the names of the overlapping quadruples.
+
 
   data_pair = data_pair[which(data_pair$max_pvalues<=0.05 & data_pair$max_correlations>=tr),]
   data_trip = data_all$triplets[which(data_all$triplets$adjust_p_value<=0.05 & data_all$triplets$correlations>=tr),]

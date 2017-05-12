@@ -1,0 +1,11 @@
+#!/bin/bash
+
+#run the script
+#all R-functions and the python scripts will be called
+Rscript Compare_Ara_Ecoli.R
+
+#cleaning up the directory
+rm -r Ecoli_run
+rm -r Ara_run
+
+

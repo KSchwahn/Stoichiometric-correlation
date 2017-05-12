@@ -1,11 +1,25 @@
-ks_stoichiometric_correlation = function(Data,indices,nblocks, NRcluster=1,names){
+ks_stoichiometric_correlation = function(Data,indices=c(1:4),nblocks, NRcluster=1,names){
   #Important: Rows of data are metabolites
-  #nrows of data %% nblokcs musst gives remainder 0
+  #nrows of data %% nblokcs musts gives remainder 0
+
+  #The function calculates all possible combination of triples and quadruples, based on the input data and the indices
+  #Up following functions will calculate the maximal correlations for triples and quadruples for each set of metabolites
+
+####Input
+   #Data: data.frame with metabolite measurements. Rows: metabolites; Cols: experiments
+   #indicies: set of values with which the metabolites are multiplied for the triples and quadruples. The more indices are specified more combinations are calculated. Default: [1,2,3,4]
+   #nblocks: Defines the size of the matrix blockes passed to rcorr. The provided function "divisors()" gives the potential nblocks, that can be chosen. As a default, the number of rows of the Data can be given to the function
+   #NRcluster: Defines how many cores should be used for the parallelization. The default is 1, which means that the task is not parallelized. The parallelization is performed on the step of correlation calculation and more Blocks can be used simultaneously.
+   #names: Separated input of the metabolite names. This is needed for correctly assigning the triples and quadruples and to make the evaluation of the final output simpler.
+
+####Output
+   #A large list, which holds all possible combinations of triples and quadruples. The list is likely to be unsorted, based on splitting the data into blocks. There for pass the results to "ks_find_max_cor_tr()" and "ks_find_max_cor_qu()".
+
   #load needed packages
   library(Hmisc, quietly = TRUE)
   library(igraph, quietly = TRUE)
   library(parallel)
-  
+  print("Start calculating the stoichiometric correlations")
   #log transform all data
   Data=log(Data)
   #creat all combinations of length 2 of the metabolite names
@@ -29,7 +43,7 @@ ks_stoichiometric_correlation = function(Data,indices,nblocks, NRcluster=1,names
   G_list = c()
   files=list.files("./","Block*")
   for(i in 1:length(files)){
-    print(i)
+    print(paste("Reading file",i,sep=" "))
     G<-read.table(files[i],header = T,sep = "\t",stringsAsFactors = F)
     G_list = rbind(G_list,G)
     rm(G)

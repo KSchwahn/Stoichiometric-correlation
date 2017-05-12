@@ -1,5 +1,7 @@
 divisors <- function(x){
-  #  Vector of numberes to test against
+  #This function can be called with the number of metabolites for which the stoichiometric correlation.
+  #It will give the number of "Blocks", in which the correlation matrix can be divided to speed up the calculation and make parallelization more meaningful.
+  #The function can be called. The default for the analysis is the number of rows of the data supplied.
   a=length(combn(x,2,simplify=F))
   b=length(c(combn(c(1:4),2,simplify = F),combn(c(4:1),2,simplify = F)))
   z <- a*b

@@ -1,5 +1,7 @@
 bigcor_p <- function(x, nblocks = 10, type = "pearson", names, NRcluster){
   #modified function from http://www.r-bloggers.com/bigcor-large-correlation-matrices-in-r/
+  #This function is called by "ks_stoichiometric_correlation". 
+  #It will calculate the correlation matrices and write the files containing these into the working directory. 
   NCOL <- ncol(x)
   ## test if ncol(x) %% nblocks gives remainder 0
   if (NCOL %% nblocks != 0) stop("Choose different 'nblocks' so that ncol(x) %% nblocks = 0!")

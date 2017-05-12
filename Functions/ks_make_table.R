@@ -1,4 +1,30 @@
 ks_make_table = function(pair,Corr,Names,tr){
+#The function takes all calculated pairs, triples and quadruples and calculates several statistics, as max, min, mean correlation for each metabolite. It is separated for pairs, triples and quadruples
+
+####Input
+  #pairs: supply the output of the functions "ks_find_max_cor()"
+  #Corr: supply the result of the "File_read_triples.py-script" and "File_read_quadruples.py-script" in one list. These document has to be read into R first.
+  #tr: specify the threshold for which the statistics should be calculated.
+
+####Output
+  #OUT: a data.frame that list for each metabolite the following informations
+	#-Total_number_of_correlations
+	#-Triplet_number_correlation
+	#-Quadruple_number_correlation
+	#-Pairs_number_correlation
+	#-Triplet_mean_correlation
+	#-Quadruple_mean_correlation
+	#-Pairs_mean_correlation
+	#-Triplet_max_correlation
+	#-Quadruple_max_correlation
+	#-Pairs_max_correlation
+	#-Triplet_min_correlation
+	#-Quadruple_min_correlation
+	#-Pairs_min_correlation
+	#-Stoichiometric_mean -> mean of the reported indices 
+	#-Stoichiometric_max -> max of the reported indices
+
+
   pair = pair[which(pair$max_pvalues<=0.05),]
   trip = Corr$triplets[which(Corr$triplets$adjust_p_value<=0.05),]
   quad = Corr$quadruples[which(Corr$quadruples$adjust_p_value<=0.05),]
