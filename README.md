@@ -1,8 +1,7 @@
-#REAMDE file for the publication "Stoichiometric correlation analysis: principles of metabolic functionality from metabolomics data"
+# REAMDE file for the publication "Stoichiometric correlation analysis: principles of metabolic functionality from metabolomics data"
 
 ### The folder "Functions" contains the following R-function files and Pyhton scripts
 
-* divisors <- number of metabolites
 * ks_stoichiometric_correlation
 * ks_find_max_cor_tr
 * ks_find_max_cor_qu
