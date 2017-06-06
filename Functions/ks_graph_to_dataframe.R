@@ -14,10 +14,10 @@ ks_graph_to_dataframe = function(graph1,graph2,name1,name2,column_name1="Data se
   # df: data.frame containing the metabolite names and their node degree, representing the their number of appearences in paris, triplets and quadruples
   
   
- df=   data.frame(names(sort(degree(graph1,v=name1))),
-                  sort(degree(graph1,v=name1)),
-             names(sort(degree(graph2,v=name2))),
-             sort(degree(graph2,v=name2)),
+ df=   data.frame(names(sort(degree(graph1,v=name1),decreasing = T)),
+                  sort(degree(graph1,v=name1),decreasing = T),
+             names(sort(degree(graph2,v=name2),decreasing = T)),
+             sort(degree(graph2,v=name2),decreasing = T),
              row.names = NULL)
  
   colnames(df)<-c("Metabolites",column_name1,"Metabolites",column_name2)

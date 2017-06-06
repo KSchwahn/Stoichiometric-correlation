@@ -91,20 +91,20 @@ ks_shared_metabolites = function(data_pair,data_all,data2_pair,data2_all,tr,name
   if(Count_quadruples_data_data2==0){Intersect_quadruples_data_data2 = "0"}
   
   #rename the output
-  str1 = paste(name1,name2,sep="-")
-  str2 = paste("#",name1,sep="")
-  str3 = paste("#",name2,sep="")
+  str1 = paste("Shared between",name1,"and",name2,sep=" ")
+  str2 = name1
+  str3 = name2
   
-  return(list(Counts=data.frame(Compare=c(str1,str2,str3),
-                                Pairs=c(Count_pair_data_data2,
-                                        length(data_p_names),
-                                        length(data2_p_names)),
-                                Triplets=c(Count_triplets_data_data2,
-                                           length(data_t_names),
-                                           length(data2_t_names)),
-                                Quadruples=c(Count_quadruples_data_data2,
-                                             length(data_q_names),
-                                             length(data2_q_names))),
+  return(list(Counts=data.frame(Compare=c(str2,str3,str1),
+                                Pairs=c(length(data_p_names),
+                                        length(data2_p_names),
+                                        Count_pair_data_data2),
+                                Triplets=c(length(data_t_names),
+                                           length(data2_t_names),
+                                           Count_triplets_data_data2),
+                                Quadruples=c(length(data_q_names),
+                                             length(data2_q_names),
+                                             Count_quadruples_data_data2)),
               pair_data_data2 = Intersect_pair_data_data2,
               triplets_data_data2 = Intersect_triplets_data_data2,
               quadruples_data_data2 = Intersect_quadruples_data_data2))

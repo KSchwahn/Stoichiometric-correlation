@@ -1,4 +1,4 @@
-ks_stoichiometric_correlation = function(Data,indices=c(1:4),nblocks, NRcluster=1,names){
+ks_stoichiometric_correlation = function(Data,indices=c(1:4),NRcluster=1,names){
   #Important: Rows of data are metabolites
   #nrows of data %% nblokcs musts gives remainder 0
 
@@ -8,7 +8,6 @@ ks_stoichiometric_correlation = function(Data,indices=c(1:4),nblocks, NRcluster=
 ####Input
    #Data: data.frame with metabolite measurements. Rows: metabolites; Cols: experiments
    #indicies: set of values with which the metabolites are multiplied for the triples and quadruples. The more indices are specified more combinations are calculated. Default: [1,2,3,4]
-   #nblocks: Defines the size of the matrix blockes passed to rcorr. The provided function "divisors()" gives the potential nblocks, that can be chosen. As a default, the number of rows of the Data can be given to the function
    #NRcluster: Defines how many cores should be used for the parallelization. The default is 1, which means that the task is not parallelized. The parallelization is performed on the step of correlation calculation and more Blocks can be used simultaneously.
    #names: Separated input of the metabolite names. This is needed for correctly assigning the triples and quadruples and to make the evaluation of the final output simpler.
 
@@ -26,6 +25,7 @@ ks_stoichiometric_correlation = function(Data,indices=c(1:4),nblocks, NRcluster=
   List <- combn(rownames(Data),2,simplify=F)
   #creat all combinations of lenght 2 of the used indices
   ind = c(combn(1:length(indices),2,simplify=F),combn(length(indices):1,2,simplify=F))
+  ind[[length(ind)+1]] = c(1,1)
   l_mat = c()
   #for each of the combination of data and indices make the sum of the data vectors and creat the matching names
   for(i in 1:length(ind)){
@@ -38,7 +38,14 @@ ks_stoichiometric_correlation = function(Data,indices=c(1:4),nblocks, NRcluster=
   #Important: nblocks defines the size of the matrix blockes passed to rcorr
   #it musst be an integer so that ncol(t(L_mat)) %% nblocks == 0
   L_mat = rbind(Data,l_mat)
-  print(nrow(L_mat))
+  div_data = divisors(nrow(Data))
+  div_mat = divisors(nrow(L_mat))
+  if(max(div_data)%in%div_mat){
+    nblocks = nrow(Data)
+  }
+  else{
+    nblocks = max(div_mat[which(abs(div_mat-max(div_data))==min(abs(div_mat-max(div_data))))])
+  }
   G= bigcor_p(t(L_mat),nblocks=nblocks,type="pearson",names, NRcluster)
   G_list = c()
   files=list.files("./","Block*")

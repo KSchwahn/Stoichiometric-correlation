@@ -24,7 +24,7 @@ write_list <-function(my_list, wb_name = 'var1.xlsx') {
  else {
     name = gsub("(.*)\\..*[a-z]", "\\1",wb_name)
     for(i in 1:length(my_list)){
-      file_name = paste(name,i,".csv",sep="")
+      file_name = paste(name,"_",i,".csv",sep="")
       write.table(x=my_list[[i]],file=file_name,quote = F,col.names = T,row.names = F,sep=",")
     }
   }
