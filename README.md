@@ -1,5 +1,6 @@
 # REAMDE file for the publication "Stoichiometric correlation analysis: principles of metabolic functionality from metabolomics data"
-## The manuscript can be found at: https://www.frontiersin.org/articles/10.3389/fpls.2017.02152/abstract
+
+### The manuscript can be found at: https://www.frontiersin.org/articles/10.3389/fpls.2017.02152/abstract
 
 ### The folder "Functions" contains the following R-function files and Pyhton scripts
 
